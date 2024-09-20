@@ -2,6 +2,18 @@ from war_base import *
 
 
 
+# set rules
+
+min_card = 2       # numbers of minimum card required to play (0/1/2 doesn't work)
+
+cards_out = 3      # numbers of card to take out while at war
+
+shuffle_cards_on = True    # shuffle cards after each round (Yes/No)
+
+round_limit = 5000      # if limit is reached, it's a draw
+
+
+
 deck = Deck()
 deck.shuffle_deck()
 
@@ -65,12 +77,12 @@ while game_on and round_limit > rounds:
 
             print("WAR!")
 
-            if len(player_1.hand_cards) < 3:
+            if len(player_1.hand_cards) < min_card:
                 print(f"{player_1.name} has no cards to play war. {player_2.name} wins the game")
                 game_on = False
                 break
 
-            elif len(player_2.hand_cards) < 3:
+            elif len(player_2.hand_cards) < min_card:
                 print(f"{player_2.name} has no cards to play war. {player_1.name} wins the game")
                 game_on = False
                 break
@@ -80,7 +92,7 @@ while game_on and round_limit > rounds:
                     player_1_table.append(player_1.remove_top())
                     player_2_table.append(player_2.remove_top())
 else:
-    if round_limit <= 3:
+    if round_limit <= rounds:
         print("Out of limit. It's a draw")
     else:
         pass
