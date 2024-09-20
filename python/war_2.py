@@ -7,7 +7,7 @@ from war_base import *
 
 # set rules
 
-min_card = 2       # numbers of minimum card required to play (1/2 doesn't work)
+min_card = 3       # numbers of minimum card required to play (1/2 doesn't work)
 
 cards_out = 3      # numbers of card to take out while at war
 
