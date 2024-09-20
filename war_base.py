@@ -1,3 +1,6 @@
+# War Card Game Simulation (https://en.wikipedia.org/wiki/War_(card_game))
+
+
 from random import shuffle
 
 
@@ -23,6 +26,8 @@ class Card:
 class Deck:
 
     def __init__(self):
+        print("Deck Created")
+        
         self.deck_cards = []
 
         for suit in suits:
@@ -37,6 +42,7 @@ class Deck:
         shuffle(self.deck_cards)
 
     def deal_one(self):
+        """Remove one card from the list of all_cards"""
 
         return self.deck_cards.pop()
 
@@ -49,6 +55,8 @@ class Player:
         self.hand_cards = []
 
     def remove_top(self):
+        """Removes one top card"""
+
         return self.hand_cards.pop(0)
 
     def add_bottom(self, cards):
@@ -60,6 +68,17 @@ class Player:
             self.hand_cards.append(cards)
 
 
+
+
+# def split_cards(player_1, player_2, deck):
+#     """Split deckcards equally"""
+
+#     for _ in range(26):
+#         player_1.add_bottom(deck.deal_one())
+#         player_2.add_bottom(deck.deal_one())
+
+
+
 def main():
 
     deck = Deck()
@@ -68,7 +87,9 @@ def main():
     player_1 = Player("One")
     player_2 = Player("Two")
 
+    # split_cards(player_1, player_2, deck)
 
+    # splits deck cards equally
     for _ in range(26):
         player_1.add_bottom(deck.deal_one())
         player_2.add_bottom(deck.deal_one())
@@ -102,12 +123,14 @@ def main():
         while at_war:
             
             if player_1_table[-1].value > player_2_table[-1].value:
+                print(f"{player_1.name} has won the battle")
                 player_1.add_bottom(player_1_table)
                 player_1.add_bottom(player_2_table)
                 at_war = False
                 break
 
             elif player_1_table[-1].value < player_2_table[-1].value:
+                print(f"{player_2.name} has won the battle")
                 player_2.add_bottom(player_1_table)
                 player_2.add_bottom(player_2_table)
                 at_war = False
@@ -133,4 +156,8 @@ def main():
                         player_2_table.append(player_2.remove_top())
 
 
-main()
+
+
+
+if __name__ == "__main__":
+    main()
