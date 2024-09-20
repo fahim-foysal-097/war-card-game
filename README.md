@@ -1,7 +1,7 @@
 
 # WAR
 
-![Logo](.war-image.jpg)
+![Logo](war-image.jpg)
 
 A simplified version of WAR card game
 
