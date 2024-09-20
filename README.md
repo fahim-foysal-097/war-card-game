@@ -5,7 +5,7 @@
 A simplified version of WAR card game
 
 ## War
-War (also known as Battle in the United Kingdom) is a card game typically played by two players. It uses a standard playing card deck. The objective of the game is to win all of the cards.
+[War](https://en.wikipedia.org/wiki/War_(card_game)) (also known as Battle in the United Kingdom) is a card game typically played by two players. It uses a [standard playing card deck](https://en.wikipedia.org/wiki/Standard_52-card_deck). The objective of the game is to win all of the cards.
 
 The deck is divided evenly among the players, giving each a down stack. In unison, each player reveals the top card of their deck—this is a "battle"—and the player with the higher card takes both of the cards played and moves them to their stack. Aces are high, and suits are ignored.
 
@@ -13,7 +13,7 @@ If the two cards played are of equal value, then there is a "war". Both players 
 
 --> In this version, the game ends if any player has less than minimum cards (e.g. 3) to continue the game
 
-
+More information : https://en.wikipedia.org/wiki/War_(card_game)
 
 
 
