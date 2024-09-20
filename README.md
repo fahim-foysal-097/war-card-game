@@ -1,6 +1,7 @@
 
 # WAR
 
+![Logo](.war-image.jpg)
 
 A simplified version of WAR card game
 
@@ -13,7 +14,9 @@ If the two cards played are of equal value, then there is a "war". Both players 
 
 --> In this version, the game ends if any player has less than minimum cards (e.g. 3) to continue the game
 
-More information : https://en.wikipedia.org/wiki/War_(card_game)
+More information : [Wikipedia](https://en.wikipedia.org/wiki/War_(card_game)) [BycleCards](https://bicyclecards.com/how-to-play/war)
 
 
+[Image](https://commons.wikimedia.org/w/index.php?curid=3588533
+) : By Remigiusz Józefowicz - Own work, CC BY-SA 2.5 pl
 
