@@ -1,3 +1,6 @@
+# War Card Game Simulation (https://en.wikipedia.org/wiki/War_(card_game))
+
+
 from war_base import *
 
 
@@ -11,6 +14,13 @@ cards_out = 3      # numbers of card to take out while at war
 shuffle_cards_on = True    # shuffle cards after each round (Yes/No)
 
 round_limit = 5000      # if limit is reached, it's a draw
+
+
+
+min_card = int(input("Numbers of minimum card required to play : "))
+cards_out = int(input("Numbers of card to take out while at war : "))
+round_limit = int(input("Limit of the rounds : "))
+shuffle_cards_on = bool(input("shuffle cards after each round (True(1) / False(0)) : "))
 
 
 
