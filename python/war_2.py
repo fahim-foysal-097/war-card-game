@@ -7,7 +7,7 @@ from war_base import *
 
 # set rules
 
-min_card = 2       # numbers of minimum card required to play (0/1/2 doesn't work)
+min_card = 2       # numbers of minimum card required to play (1/2 doesn't work)
 
 cards_out = 3      # numbers of card to take out while at war
 
@@ -16,11 +16,21 @@ shuffle_cards_on = True    # shuffle cards after each round (Yes/No)
 round_limit = 5000      # if limit is reached, it's a draw
 
 
+input_on = True
 
-min_card = int(input("Numbers of minimum card required to play : "))
-cards_out = int(input("Numbers of card to take out while at war : "))
-round_limit = int(input("Limit of the rounds : "))
-shuffle_cards_on = bool(input("shuffle cards after each round (True(1) / False(0)) : "))
+
+# Exception handling
+
+while input_on:
+    try:
+        min_card = int(input("Numbers of minimum card required to play : "))
+        cards_out = int(input("Numbers of card to take out while at war : "))
+        round_limit = int(input("Limit of the rounds : "))
+        shuffle_cards_on = bool(input("shuffle cards after each round (True(1) / False(0)) : "))
+        break
+    except:
+        print("Sorry! Invalid Input")
+        continue
 
 
 
