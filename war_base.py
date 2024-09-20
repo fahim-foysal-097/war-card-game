@@ -58,6 +58,10 @@ class Player:
         """Removes one top card"""
 
         return self.hand_cards.pop(0)
+        # try: 
+        #     return self.hand_cards.pop(0)
+        # except:
+        #     print("Out Of Cards")
 
     def add_bottom(self, cards):
         """Adds one card to bottom"""
