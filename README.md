@@ -3,7 +3,7 @@
 
 ![Logo](war-image.jpg)
 
-A simplified version of WAR card game
+A simplified version of WAR card game (Simulation)
 
 ## War
 [War](https://en.wikipedia.org/wiki/War_(card_game)) (also known as Battle in the United Kingdom) is a card game typically played by two players. It uses a [standard playing card deck](https://en.wikipedia.org/wiki/Standard_52-card_deck). The objective of the game is to win all of the cards.
