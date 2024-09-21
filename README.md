@@ -12,7 +12,7 @@ The deck is divided evenly among the players, giving each a down stack. In uniso
 
 If the two cards played are of equal value, then there is a "war". Both players place the next card from their pile face down and then another card face-up. The owner of the higher face-up card wins the war and adds all the cards on the table to the bottom of their deck. If the face-up cards are again equal then the battle repeats with another set of face-down/up cards. This repeats until one player's face-up card is higher than their opponent's.
 
---> In this version, the game ends if any player has less than minimum cards (e.g. 3) to continue the game
+--> The game ends if a player doesn't have enough cards to play war or ran out of cards
 
 More information : [Wikipedia](https://en.wikipedia.org/wiki/War_(card_game)) [BycleCards](https://bicyclecards.com/how-to-play/war)
 
