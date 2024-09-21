@@ -3,7 +3,6 @@
 from war_base import *
 
 # Set rules
-min_card = 3  # minimum number of cards required to play
 cards_out = 3  # number of cards to take out during a war
 shuffle_cards_on = True  # shuffle cards after each round (Yes/No)
 round_limit = 5000  # round limit before the game ends in a draw
