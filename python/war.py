@@ -181,8 +181,8 @@ def main(cards_out, shuffle_cards_on, round_limit, details_on):
 
     
     if round_limit <= rounds:
-            print("Round limit reached. It's a draw")
-            game_winner = "draw"
+        print("Round limit reached. It's a draw")
+        game_winner = "draw"
 
 
     print(f"Game ended after {rounds} rounds")
@@ -198,13 +198,13 @@ if __name__ == "__main__":
     
 
     # Set rules if input_on is False
-    num_games = 50  # number of games to simulate
+    num_games = 500  # number of games to simulate
     cards_out = 5  # number of cards to take out during a war
-    round_limit = 100  # round limit before the game ends in a draw
-    shuffle_cards_on = True  # shuffle cards after each round (Yes/No)
+    round_limit = 10000  # round limit before the game ends in a draw
+    shuffle_cards_on = False  # shuffle cards after each round (Yes/No)
     details_on = True  # show game details
 
-    input_on = False
+    input_on = True
 
     while input_on:
         try:
@@ -262,12 +262,12 @@ if __name__ == "__main__":
     
     print("\n"*5)
     print(f"------- Statistics for {num_games} games -------")
-    print(f"Player 1 won {p_1_wins} games ({p_1_wins / num_games * 100:.1f}%)")
-    print(f"Player 2 won {p_2_wins} games ({p_2_wins / num_games * 100:.1f}%)")
-    print(f"Draws: {draw} games ({draw / num_games * 100:.1f}%)")
+    print(f"Player 1 won {p_1_wins} games ({p_1_wins / num_games * 100:.2f}%)")
+    print(f"Player 2 won {p_2_wins} games ({p_2_wins / num_games * 100:.2f}%)")
+    print(f"Draws: {draw} games ({draw / num_games * 100:.2f}%)")
     print(f"Maximum rounds: {max(all_rounds)}")
     print(f"Average rounds per game: {sum(all_rounds) / num_games}")
     print(f"Average wars per game: {sum(all_wars) / num_games}")
-    print(f"Player 1 won {all_one_wins_battle} battles ({all_one_wins_battle / total_battles * 100:.1f}%)")
-    print(f"Player 2 won {all_two_wins_battle} battles ({all_two_wins_battle / total_battles * 100:.1f}%)")
+    print(f"Player 1 won {all_one_wins_battle} battles ({all_one_wins_battle / total_battles * 100:.2f}%)")
+    print(f"Player 2 won {all_two_wins_battle} battles ({all_two_wins_battle / total_battles * 100:.2f}%)")
 
