@@ -90,8 +90,16 @@ def main():
         try:
             cards_out = int(input("Number of cards to take out during a war: "))
             round_limit = int(input("Round limit: "))
-            shuffle_cards_on = bool(int(input("Shuffle cards after each round (True(1)/False(0)): ")))
-            break
+            shuffle_cards_on = int(input("Shuffle cards after each round (True(1)/False(0)): "))
+            if shuffle_cards_on == 1:
+                shuffle_cards_on = True
+                break
+            elif shuffle_cards_on == 0:
+                shuffle_cards_on = False
+                break
+            else:
+                print("Sorry! Invalid Input")
+                continue
         except ValueError:
             print("Sorry! Invalid Input")
             continue
@@ -170,4 +178,8 @@ def main():
         else:
             pass
 
-main()
+
+
+
+if __name__ == "__main__":
+    main()
