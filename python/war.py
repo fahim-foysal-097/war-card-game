@@ -131,7 +131,6 @@ def main():
 
         rounds += 1
         print(f"Round {rounds}")
-        at_war = True
 
         # Check if any player has no cards left
         if len(player_1.hand_cards) == 0:
@@ -143,23 +142,24 @@ def main():
             game_on = False
             break
 
-        player_1_table = [player_1.remove_top()]
-        player_2_table = [player_2.remove_top()]
+        # Each player plays one card (face-up)
+        player_1_t_card = player_1.remove_top()
+        player_2_t_card = player_2.remove_top()
+        table = [player_1_t_card, player_2_t_card]
 
-        while at_war:
+
+        while True:
             # Normal battle: compare top cards
-            if player_1_table[-1].value > player_2_table[-1].value:
+            if player_1_t_card.value > player_2_t_card.value:
                 print(f"{player_1.name} wins the battle")
-                player_1.add_bottom(player_1_table)
-                player_1.add_bottom(player_2_table)
-                at_war = False
-            elif player_1_table[-1].value < player_2_table[-1].value:
+                player_1.add_bottom(table)
+                break
+            elif player_1_t_card.value < player_2_t_card.value:
                 print(f"{player_2.name} wins the battle")
-                player_2.add_bottom(player_1_table)
-                player_2.add_bottom(player_2_table)
-                at_war = False
+                player_2.add_bottom(table)
+                break
             else:
-                # War case
+                # WAR CASE
                 print("WAR!")
 
                 # Check if players have enough cards for war
@@ -174,8 +174,14 @@ def main():
 
                 # Add face-down war cards
                 for _ in range(cards_out):
-                    player_1_table.append(player_1.remove_top())
-                    player_2_table.append(player_2.remove_top())
+                    table.append(player_1.remove_top())
+                    table.append(player_2.remove_top())
+            
+            # Add face-up cards for comparison
+                player_1_card = player_1.remove_top()
+                player_2_card = player_2.remove_top()
+                table.append(player_1_card)
+                table.append(player_2_card)
 
     
     if round_limit <= rounds:
