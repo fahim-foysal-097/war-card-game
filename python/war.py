@@ -104,6 +104,12 @@ def main():
                 continue
             shuffle_cards_on = bool(shuffle_input)
 
+            details_on = int(input("Show game details (1 for Yes, 0 for No): "))
+            if details_on not in (0, 1):
+                print("Please enter 0 or 1")
+                continue
+            details_on = bool(details_on)
+
             input_on = False  # Exit loop if all inputs are valid
 
         except ValueError:
@@ -146,6 +152,9 @@ def main():
         player_1_t_card = player_1.remove_top()
         player_2_t_card = player_2.remove_top()
         table = [player_1_t_card, player_2_t_card]
+        
+        if details_on:
+            print(f"{player_1.name} plays {player_1_t_card}, {player_2.name} plays {player_2_t_card}")
 
 
         while True:
@@ -176,17 +185,26 @@ def main():
                 for _ in range(cards_out):
                     table.append(player_1.remove_top())
                     table.append(player_2.remove_top())
-            
-            # Add face-up cards for comparison
-                player_1_card = player_1.remove_top()
-                player_2_card = player_2.remove_top()
-                table.append(player_1_card)
-                table.append(player_2_card)
+                
+                if details_on:
+                    print(f"War cards on table: {len(table)} cards")
+
+                # Add and update face-up cards for comparison
+                player_1_t_card = player_1.remove_top()
+                player_2_t_card = player_2.remove_top()
+                table.append(player_1_t_card)
+                table.append(player_2_t_card)
+
+                if details_on:
+                    print(f"{player_1.name} plays {player_1_t_card}, {player_2.name} plays {player_2_t_card}")
 
     
     if round_limit <= rounds:
             print("Round limit reached. It's a draw")
-        
+
+
+    print(f"Game ended after {rounds} rounds")
+    print(f"{player_1.name} has {len(player_1.hand_cards)} cards, {player_2.name} has {len(player_2.hand_cards)} cards")
 
 
 
