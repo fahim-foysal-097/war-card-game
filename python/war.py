@@ -73,36 +73,11 @@ class Player:
 
 
 
-def main():
-    """Main Script"""
+def main(cards_out, shuffle_cards_on, round_limit, details_on):
+    """Main Script : (returns rounds, wars, one_wins_battle, two_wins_battle, game_winner)"""
 
     print("Welcome to War Card Game")
 
-    # Set rules
-    cards_out = 3  # number of cards to take out during a war
-    shuffle_cards_on = True  # shuffle cards after each round (Yes/No)
-    round_limit = 5000  # round limit before the game ends in a draw
-
-    input_on = True
-
-    # Exception handling for input
-    while input_on:
-        try:
-            cards_out = int(input("Number of cards to take out during a war: "))
-            round_limit = int(input("Round limit: "))
-            shuffle_cards_on = int(input("Shuffle cards after each round (True(1)/False(0)): "))
-            if shuffle_cards_on == 1:
-                shuffle_cards_on = True
-                break
-            elif shuffle_cards_on == 0:
-                shuffle_cards_on = False
-                break
-            else:
-                print("Sorry! Invalid Input")
-                continue
-        except ValueError:
-            print("Sorry! Invalid Input")
-            continue
 
     deck = Deck()
     deck.shuffle_deck()
@@ -115,71 +90,184 @@ def main():
         player_1.add_bottom(deck.deal_one())
         player_2.add_bottom(deck.deal_one())
 
+    # stats
     rounds = 0
+    wars = 0
+    one_wins_battle = 0
+    two_wins_battle = 0
+    game_winner = None
+
     game_on = True
 
     while game_on and round_limit > rounds:
-        if shuffle_cards_on and rounds > 1:
+        if shuffle_cards_on and rounds > 0:  # Starts from round 1
             print("Shuffling player cards")
             shuffle(player_1.hand_cards)
             shuffle(player_2.hand_cards)
 
         rounds += 1
         print(f"Round {rounds}")
-        at_war = True
 
         # Check if any player has no cards left
         if len(player_1.hand_cards) == 0:
             print(f"{player_1.name} has no cards remaining. {player_2.name} wins the game")
             game_on = False
+            two_wins_battle += 1
+            game_winner = "p_2"
             break
         elif len(player_2.hand_cards) == 0:
             print(f"{player_2.name} has no cards remaining. {player_1.name} wins the game")
             game_on = False
+            one_wins_battle += 1
+            game_winner = "p_1"
             break
 
-        player_1_table = [player_1.remove_top()]
-        player_2_table = [player_2.remove_top()]
+        # Each player plays one card (face-up)
+        player_1_t_card = player_1.remove_top()
+        player_2_t_card = player_2.remove_top()
+        table = [player_1_t_card, player_2_t_card]
+        
+        if details_on:
+            print(f"{player_1.name} plays {player_1_t_card}, {player_2.name} plays {player_2_t_card}")
 
-        while at_war:
+
+        while True:
             # Normal battle: compare top cards
-            if player_1_table[-1].value > player_2_table[-1].value:
+            if player_1_t_card.value > player_2_t_card.value:
                 print(f"{player_1.name} wins the battle")
-                player_1.add_bottom(player_1_table)
-                player_1.add_bottom(player_2_table)
-                at_war = False
-            elif player_1_table[-1].value < player_2_table[-1].value:
+                player_1.add_bottom(table)
+                one_wins_battle += 1
+                break
+            elif player_1_t_card.value < player_2_t_card.value:
                 print(f"{player_2.name} wins the battle")
-                player_2.add_bottom(player_1_table)
-                player_2.add_bottom(player_2_table)
-                at_war = False
+                player_2.add_bottom(table)
+                two_wins_battle += 1
+                break
             else:
-                # War case
+                # WAR CASE
                 print("WAR!")
+                wars += 1
 
                 # Check if players have enough cards for war
                 if len(player_1.hand_cards) < cards_out + 1:
                     print(f"{player_1.name} doesn't have enough cards for war. {player_2.name} wins the game")
                     game_on = False
+                    two_wins_battle += 1
+                    game_winner = "p_2"
                     break
                 elif len(player_2.hand_cards) < cards_out + 1:
                     print(f"{player_2.name} doesn't have enough cards for war. {player_1.name} wins the game")
                     game_on = False
+                    one_wins_battle += 1
+                    game_winner = "p_1"
                     break
 
                 # Add face-down war cards
                 for _ in range(cards_out):
-                    player_1_table.append(player_1.remove_top())
-                    player_2_table.append(player_2.remove_top())
+                    table.append(player_1.remove_top())
+                    table.append(player_2.remove_top())
+                
+                if details_on:
+                    print(f"War cards on table: {len(table)} cards")
 
-    else:
-        if round_limit <= rounds:
-            print("Out of limit. It's a draw")
-        else:
-            pass
+                # Add and update face-up cards for comparison
+                player_1_t_card = player_1.remove_top()
+                player_2_t_card = player_2.remove_top()
+                table.append(player_1_t_card)
+                table.append(player_2_t_card)
+
+                if details_on:
+                    print(f"{player_1.name} plays {player_1_t_card}, {player_2.name} plays {player_2_t_card}")
+
+    
+    if round_limit <= rounds:
+        print("Round limit reached. It's a draw")
+        game_winner = "draw"
+
+
+    print(f"Game ended after {rounds} rounds")
+    print(f"{player_1.name} has {len(player_1.hand_cards)} cards, {player_2.name} has {len(player_2.hand_cards)} cards")
+
+    return (rounds, wars, one_wins_battle, two_wins_battle, game_winner)
+
 
 
 
 
 if __name__ == "__main__":
-    main()
+    
+
+    # Set rules if input_on is False
+    num_games = 500  # number of games to simulate
+    cards_out = 5  # number of cards to take out during a war
+    round_limit = 10000  # round limit before the game ends in a draw
+    shuffle_cards_on = False  # shuffle cards after each round (Yes/No)
+    details_on = True  # show game details
+
+    input_on = True
+
+    while input_on:
+        try:
+            num_games = int(input("Number of games to simulate (1 or more): "))
+            if num_games < 1:
+                print("Please enter a number of 1 or greater.")
+                continue
+
+            cards_out = int(input("Number of cards to take out during a war (1-25): "))
+            if cards_out < 1 or cards_out > 25:
+                print("Please enter a number between 1 and 25.")
+                continue
+
+            round_limit = int(input("Round limit: "))
+            if round_limit <= 0:
+                print("Round limit must be a positive integer.")
+                continue
+
+            shuffle_input = int(input("Shuffle cards after each round (1 for Yes, 0 for No): "))
+            if shuffle_input not in (0, 1):
+                print("Please enter 0 or 1")
+                continue
+            shuffle_cards_on = bool(shuffle_input)
+
+            details_on = int(input("Show game details (1 for Yes, 0 for No): "))
+            if details_on not in (0, 1):
+                print("Please enter 0 or 1")
+                continue
+            details_on = bool(details_on)
+            
+            break
+        except ValueError:
+            print("Sorry! That's not a valid number.")
+            continue
+    
+    all_rounds = []
+    all_wars = []
+    all_one_wins_battle = 0
+    all_two_wins_battle = 0
+    all_game_winner = []
+
+    for _ in range(num_games):
+        rounds, wars, one_wins_battle, two_wins_battle, game_winner = main(cards_out, shuffle_cards_on, round_limit, details_on)
+
+        all_rounds.append(rounds)
+        all_wars.append(wars)  
+        all_one_wins_battle += one_wins_battle
+        all_two_wins_battle += two_wins_battle
+        all_game_winner.append(game_winner)
+
+    p_1_wins = all_game_winner.count("p_1")
+    p_2_wins = all_game_winner.count("p_2")
+    draw = all_game_winner.count("draw")
+    total_battles = all_one_wins_battle + all_two_wins_battle
+    
+    print("\n"*5)
+    print(f"------- Statistics for {num_games} games -------")
+    print(f"Player 1 won {p_1_wins} games ({p_1_wins / num_games * 100:.2f}%)")
+    print(f"Player 2 won {p_2_wins} games ({p_2_wins / num_games * 100:.2f}%)")
+    print(f"Draws: {draw} games ({draw / num_games * 100:.2f}%)")
+    print(f"Maximum rounds: {max(all_rounds)}")
+    print(f"Average rounds per game: {sum(all_rounds) / num_games}")
+    print(f"Average wars per game: {sum(all_wars) / num_games}")
+    print(f"Player 1 won {all_one_wins_battle} battles ({all_one_wins_battle / total_battles * 100:.2f}%)")
+    print(f"Player 2 won {all_two_wins_battle} battles ({all_two_wins_battle / total_battles * 100:.2f}%)")
+
