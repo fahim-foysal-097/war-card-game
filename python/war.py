@@ -88,21 +88,26 @@ def main():
     # Exception handling for input
     while input_on:
         try:
-            cards_out = int(input("Number of cards to take out during a war: "))
-            round_limit = int(input("Round limit: "))
-            shuffle_cards_on = int(input("Shuffle cards after each round (True(1)/False(0)): "))
-            if shuffle_cards_on == 1:
-                shuffle_cards_on = True
-                break
-            elif shuffle_cards_on == 0:
-                shuffle_cards_on = False
-                break
-            else:
-                print("Sorry! Invalid Input")
+            cards_out = int(input("Number of cards to take out during a war (1-25): "))
+            if cards_out < 1 or cards_out > 25:
+                print("Please enter a number between 1 and 25.")
                 continue
+
+            round_limit = int(input("Round limit: "))
+            if round_limit <= 0:
+                print("Round limit must be a positive integer.")
+                continue
+
+            shuffle_input = int(input("Shuffle cards after each round (1 for Yes, 0 for No): "))
+            if shuffle_input not in (0, 1):
+                print("Please enter 0 or 1")
+                continue
+            shuffle_cards_on = bool(shuffle_input)
+
+            input_on = False  # Exit loop if all inputs are valid
+
         except ValueError:
-            print("Sorry! Invalid Input")
-            continue
+            print("Sorry! Invalid input")
 
     deck = Deck()
     deck.shuffle_deck()
@@ -119,7 +124,7 @@ def main():
     game_on = True
 
     while game_on and round_limit > rounds:
-        if shuffle_cards_on and rounds > 1:
+        if shuffle_cards_on and rounds > 0:  # Starts from round 1
             print("Shuffling player cards")
             shuffle(player_1.hand_cards)
             shuffle(player_2.hand_cards)
@@ -172,11 +177,10 @@ def main():
                     player_1_table.append(player_1.remove_top())
                     player_2_table.append(player_2.remove_top())
 
-    else:
-        if round_limit <= rounds:
-            print("Out of limit. It's a draw")
-        else:
-            pass
+    
+    if round_limit <= rounds:
+            print("Round limit reached. It's a draw")
+        
 
 
 
